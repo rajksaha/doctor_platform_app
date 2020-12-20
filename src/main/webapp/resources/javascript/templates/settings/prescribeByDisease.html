@@ -1,0 +1,69 @@
+<section  class=" contacts row" id="generalInfoContact">
+     <div  class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+         <div class="panel">	                 
+             <div class="panel-body">
+             	<div class="text-muted form-group">Disease Name</div>	                    
+                <div class="room-desc">	
+                      <input type="text" ng-model="diagnosisData.diseaseName" typeahead="diagnosisNameData.name for diagnosisNameData in getDisease($viewValue)"  class="form-control required" placeholder="Disease" typeahead-on-select='onSelectDisease($item, $model, $label)'/>
+                </div>
+             </div>
+         </div>
+     </div>
+     <div  class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+         <div class="panel">	                 
+             <div class="panel-body">
+             	<div class="text-muted form-group">Action</div>	                    
+                <div class="room-desc">	
+                     <button  data-ng-click="bringSettings()" class="btn btn-primary" > <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span> View</button>
+                </div>
+             </div>
+         </div>
+     </div>
+</section>
+
+
+<div class="generic-container" data-ng-show="diseaseSelected">
+	<div class="panel panel-default">
+		<div class="panel-heading clearfix">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				<h4>Template</h4>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				<span class="pull-right">
+					<!--<a  style="padding-left:12px;" class="btn btn-info" data-ng-click="addFollowUpINV()"><i class="fa fa-plus" > Add to settings</i></a>
+					<a  style="padding-left:12px;" class="btn btn-info" data-ng-click="addFollowUp()"><i class="fa fa-plus" > Add report</i></a>-->
+				</span>
+			</div>
+		</div>
+		<div class="panel-body">
+
+			<div class="row">
+				<div class="col-sm-2 col-md-2 col-lg-2">
+					<label class="link" data-ng-click="modalForInv()">Inv</label>
+					<div data-ng-repeat="invData in invSettingList">
+						<span class="glyphicons glyphicon glyphicon-trash link" aria-hidden="true" data-ng-click="deleteInvFromSetting(invData.id)"></span>
+						<span>{{invData.invName}}</span>
+					</div>
+				</div>
+				<div class="col-sm-4 col-md-4 col-lg-4 verticalLine">
+					<label class="link" data-ng-click="modalForAdvice()" >Advice</label>
+					<div data-ng-repeat="advice in advieSettingList">
+						<span class="glyphicons glyphicon glyphicon-trash link" aria-hidden="true" data-ng-click="delAdviceFromSetting(advice.id)"></span>
+						<span>{{advice.advice}}</span>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-6 col-lg-6 verticalLine">
+					<label class="link" data-ng-click="modalForDrugs()">Drugs</label>
+					<div data-ng-repeat="drugPres in drugSettingList">
+						<span class="glyphicons glyphicon glyphicon-trash link" aria-hidden="true" data-ng-click="deleteDrugsFromSetting(drugPres.id)"></span>
+						<span>{{drugPres.typeInitial}}. {{drugPres.drugName}} - {{drugPres.drugStrength}}</span>
+						<span data-ng-repeat="drugDose in drugPres.preiodicList">
+							{{drugDose.dose}} {{drugDose.numOfDay}} {{drugDose.bangla}}
+						</span>
+						<span>{{drugPres.whenTypeName}} {{drugPres.adviceTypeName}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

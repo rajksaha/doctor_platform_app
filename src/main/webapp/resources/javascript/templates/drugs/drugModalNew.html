@@ -1,0 +1,103 @@
+<div class="modal-header modalHead ">
+	<h4 class="modal-title">Add Drugs</h4>
+</div>
+<div class="modal-body modalBody"  style="position:relative; z-index:1;">
+	<div class="alert alert-danger alert-dismissable" data-ng-show="error">
+		<div>{{errorMessage}}</div>
+		<div id="lblMsg_modal"></div>
+	</div>
+
+	<div  class="row step4Width" id="validateReq">
+
+		<div class="form-group col-xs-12 col-sm-12">
+			<div class="form-group col-xs-4 col-sm-4">
+				<label>Type </label>
+				<select  class="form-control" data-ng-model="drugData.drugTypeID"
+						 data-ng-change="timeChanger(3)"
+						 data-ng-options="drugType.drugTypeID as drugType.name for drugType in drugTypeList" />
+			</div>
+			<div class="form-group col-xs-6 col-sm-6" id="drugName">
+				<label>Drug Name <span class="red" >*</span></label>
+				<input type="text" errmsg="Please Enter Drug Name" data-ng-model="drugData.drugName" typeahead="drugNameList.drugName for drugNameList in getDrugName($viewValue)"  class="form-control required" placeholder="Add Drugs" typeahead-on-select='onSelectDrugName($item, $model, $label)'/>
+			</div>
+			<div class="form-group col-xs-2 col-sm-2">
+				<label>Dose Initial</label>
+				<span data-ng-model="drugData.doseUnitInitial" data-ng-show="!drugData.drugType.optionalUnitInitial">{{drugData.drugType.unitInitial || "No intial"}}</span>
+				<div data-ng-show="drugData.drugType.optionalUnitInitial" >
+					<input type="checkbox" data-ng-model="drugData.doseUnitInitial" data-ng-checked="!drugData.optionalInitial" ng-click="drugData.optionalInitial = !drugData.optionalInitial">
+					{{drugData.drugType.unitInitial}}
+					&nbsp;&nbsp;
+					<input type="checkbox" data-ng-model="drugData.doseOptionalUnitInitial" data-ng-checked="drugData.optionalInitial" ng-click="drugData.optionalInitial = !drugData.optionalInitial">
+					{{drugData.drugType.optionalUnitInitial}}
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group col-xs-12 col-sm-12" >
+			<div class="form-group col-xs-6 col-sm-6">
+				<label>Times a day</label>
+				<select  class="form-control" data-ng-model="drugData.doseTypeCode" data-ng-options="doseType.doseCode as doseType.english for doseType in doseTypeList" data-ng-change="timeChanger(3)" />
+				<select class="form-control" data-ng-show="drugData.doseTypeCode == -1" data-ng-model="drugData.preodicValue"  data-ng-change="timeChanger(drugData.preodicValue)" >
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</select>
+			</div>
+
+			<div class="form-group col-xs-6 col-sm-6">
+				<label>When</label>
+				<select  class="form-control" data-ng-model="drugData.drugWhenID" data-ng-options="drugWhen.whenTypeID as drugWhen.bangla for drugWhen in drugWhenTypeList" />
+			</div>
+		</div>
+
+
+		<div class="form-group col-xs-12 col-sm-12">
+
+			<div data-ng-repeat="periodData in drugData.periodList" class="row">
+				<div class="form-group col-xs-6">
+					<label>Interval Wise Dose</label><br>
+					<button data-ng-show="drugData.doseTypeCode != -2" data-ng-click="doseChanger( .5, periodData.doseDataList)" >+</button>
+					<span data-ng-repeat="drugDose in periodData.doseDataList">
+	                 			<span data-ng-show="$index != 0 && $index % 3 == 0"><br></span>
+	                 			<input data-ng-show="drugData.doseTypeCode != -2" type="text" size="2" data-ng-model="drugDose.value">
+	                 			<input class="form-control required" data-ng-show="drugData.doseTypeCode == -2" type="text"  data-ng-model="drugDose.value 	">
+							</span>
+					<button data-ng-show="drugData.doseTypeCode != -2" data-ng-click="doseChanger( -.5, periodData.doseDataList)" >-</button>
+				</div>
+
+				<div class="form-group col-xs-3">
+					<label>Duration num</label>
+					<select class="form-control"  data-ng-model="periodData.numOfDay"
+							data-ng-options="drugDay.value as drugDay.name for drugDay in periodData.drugNumOfDayList"
+							data-ng-show="periodData.durationType < 5" >
+					</select>
+				</div>
+
+				<div class="form-group col-xs-3">
+					<label>Duration Type</label>
+					<select class="form-control" data-ng-model="periodData.durationType"
+							data-ng-options="durType.durationType as durType.engName for durType in periodData.durationTypeList">
+					</select>
+				</div>
+
+
+			</div>
+
+		</div>
+
+
+		<div class="form-group col-xs-12 col-sm-12 ">
+			<label>Drug Adivice</label>
+			<select class="form-control" data-ng-model="drugData.drugAdviceID" data-ng-options="drugAdvice.drugAdviceID as drugAdvice.bangla for drugAdvice in drugAdviceTypeList" />
+		</div>
+
+	</div>
+
+
+</div>
+<div class="modal-footer modalFoot">
+	<button class="btn btnLanier btn-success" data-ng-click="saveDrug(true)" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save & Add Other</button>
+	<button class="btn btnLanier btn-success" data-ng-click="saveDrug(false)" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save </button>
+	<button class="btn btnLanier btn-danger" data-ng-click="cancelDrug()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</button>
+</div>

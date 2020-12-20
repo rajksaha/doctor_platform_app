@@ -1,0 +1,44 @@
+<div class="panel col-md-12 filter-panel">
+    <section  data-ng-show="true" class=" contacts row" id="generalInfoContact">
+        <!--<div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="room-desc form-group m-b-0"  >
+                        <input type="text"  class="form-control date" placeholder="Follow-up From" datepicker-popup="dd/MM/yyyy" close-text="Close" is_open="dt2" ng-focus="dt2 = true" ng-model="startDate" is-open="false"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="room-desc form-group m-b-0"  >
+                        <input type="text"  class="form-control date" placeholder="Follow-up To" data-ng-change="addByDate = true" datepicker-popup="dd/MM/yyyy" close-text="Close" is_open="dt3" ng-focus="dt3 = true" ng-model="endDate"  is-open="false"/>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <select  class="form-control" data-ng-model="patientTypeId" data-ng-options="patientType.id as patientType.typeName for patientType in patientTypeList" data-ng-change="setVal(patientTypeId)">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="room-desc form-group m-b-0" >
+                        <input type="text"  class="form-control" data-ng-model="patientCode" data-ng-change="patientCode = true" placeholder="Search By Patient ID" typeahead="appointment.patientCode for appointment in bringByPatientID($viewValue)"  close-text="Close" is-open="false"/>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </section>
+
+    <button class="btn btnLanier btn-primary pull-right" data-ng-click="search()" >
+        <span class="fa fa-search" aria-hidden="true"></span> Search
+    </button>
+</div>

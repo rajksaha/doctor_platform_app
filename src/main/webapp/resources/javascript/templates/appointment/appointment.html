@@ -1,0 +1,90 @@
+<hr>
+<div class="row">
+    <div  data-ng-if="hasAccess('CREATE_NEW_APP')" class="col-sm-3 col-md-3 col-lg-3 link" data-ng-click="addNewAppointment()">
+        <div class="item-box">
+            <i class="fa fa-user-plus fa-3x"></i>
+            <label>New Patient</label>
+        </div>
+    </div>
+    <div data-ng-if="hasAccess('CREATE_FOLLOW_APP')" class="col-sm-3 col-md-3 col-lg-3 link" data-ng-click="addFollowUpAppointment()">
+        <div class="item-box">
+            <i class="fa fa-user fa-3x"></i>
+            <label>Follow up Patient</label>
+        </div>
+    </div>
+    <div data-ng-if="hasAccess('8')" class="col-sm-3 col-md-3 col-lg-3 link" data-ng-click="changePage(3)">
+        <div class="item-box">
+            <i class="fa fa-user-md fa-3x"></i>
+            <label>Research</label>
+        </div>
+    </div>
+    <div data-ng-if="hasAccess('2')" class="col-sm-3 col-md-3 col-lg-3 link" data-ng-click="changePage(4)">
+        <div class="item-box">
+            <i class="fa fa-cogs fa-3x"></i>
+            <label>Setting</label>
+        </div>
+    </div>
+	
+	
+</div>
+<hr>
+<div class="panel col-md-12 appointment" data-ng-if="hasAccess('16')">
+    <div class="col-md-8 panel panel-primary mainPanelColor panel1" style="padding-top: 12px;padding-bottom: 12px">
+        <div  style="padding-top: 25px;">
+            <div class="col-xs-12  col-lg-14" >
+                <div class="panelHead">
+                    <div class="alert alert-info col-lg-12" data-ng-if="hasAccess('SEARCH_APPOINTMENT')">
+                        <span class="col-lg-3">Today's Patients List</span>
+                        <span class="col-lg-7">
+                            <input type="text" maxlength="240" id="searcheString" class="form-control  required" placeholder="Search Patient" ng-keydown="searchAppointment()" />
+                        </span>
+                        <span class="pull-right col-lg-2">Total:{{numberOfAppointment}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="col-xs-12 col-lg-12" style="height: 422px; overflow-y: auto;"  >
+                <div class="panelChild">
+                    <div class="" data-ng-repeat="appointmentData in appointmentList" >
+                        <div class="panelChild-body form-group" data-ng-show="appointmentData.status == 0"  >
+                            <span class="textSpc" data-ng-click="letsPrescribe(appointmentData)" >{{$index + 1}} | {{appointmentData.patient.firstName}} | {{appointmentData.patient.currentAge}} yrs  | {{appointmentData.patient.address}} | {{appointmentData.time}} - {{appointmentData.appointmentType}}</span>
+
+
+                            <span class="textSpc pull-right" data-ng-if="hasAccess('DELETE_APPOINTMENT')">
+										<button class="btn btn-danger pull-right" style="margin-top: -8px"
+                                                ktr-confirmation="removeFromAppointment(appointmentData.appointmentID)"
+                                                confirmation-message="Are you sure to remove?"
+                                                confirmation-title="Confirmation">
+										    <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
+										</button>
+                            </span>
+                        </div>
+                        <div  class="panelVisited-body form-group" data-ng-show="appointmentData.status == 1"
+                              ktr-confirmation="letsPrescribe(item)"
+                              confirmation-message="Want to re-visit this patient?"
+                              confirmation-title="Confirmation"
+                              item="appointmentData">
+                            <span class="textSpc">{{$index + 1}} | {{appointmentData.patient.firstName}} | {{appointmentData.patient.currentAge}} yrs  | {{appointmentData.patient.address}}</span>
+                            <span class="textSpc pull-right">
+										<button class="btn btn-info pull-right" style="margin-top: -8px">
+										    <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+										</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 panel panel-primary mainPanelColor panel1" style="padding-left:0;padding-right:0;padding-top: 12px;padding-bottom: 12px; height: 560px;" data-ng-if="hasAccess('18')" >
+        <div>
+            <div class="col-xs-12 col-lg-12" >
+                <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+                <br>
+                <div id="chartContainer2" style="height: 200px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>

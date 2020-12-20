@@ -1,0 +1,66 @@
+
+
+<div class="alert alert-danger alert-dismissable" data-ng-show="hasError">
+    {{message}}
+</div>
+<div class="alert alert-success alert-dismissable" data-ng-show="hasSuccess">
+    {{message}}
+</div>
+
+<div class="post single style-1">
+    <h2>Welcome {{userData.profileData.firstName}}</h2>
+</div>
+
+
+<div class="row">
+    <div  data-ng-if="userData.permissions['SUPER_ADMIN']" class="col-sm-3 col-md-3 col-lg-3 link" data-ng-click="addNewAppointment()">
+        <div class="item-box" data-ng-click="changeState('root.module')">
+            <i class="fa fa-cogs"></i>
+            <span>Management</span>
+        </div>
+    </div>
+    <div data-ng-if="userData.permissions['SUPER_ADMIN']" class="col-sm-3 col-md-3 col-lg-3 link" data-ng-click="changePage(2)">
+        <div class="item-box" data-ng-click="companyManagement = !companyManagement">
+            <i class="fa fa-cogs"></i>
+            <span >Company Management</span>
+        </div>
+        <div data-ng-show="companyManagement">
+            <ul>
+                <li>
+                    <a href="" data-ng-click="changeState('root.company')" class="list-group-item"></i> Company </a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changeState('root.companyModule')" class="list-group-item"></i> Company Module </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div data-ng-if="userData.permissions['SUPER_ADMIN'] || userData.permissions['COMPANY_ADMIN']|| userData.permissions['DOCTOR']" class="col-sm-3 col-md-3 col-lg-3 link" data-ng-click="changePage(3)">
+        <div class="item-box" data-ng-click="userManagement = !userManagement">
+            <i class="fa fa-users"></i>
+            <span>User Management</span>
+        </div>
+        <div class="echo_list_drop" data-ng-show="userManagement">
+            <ul>
+                <li>
+                    <a href="" data-ng-click="changeState('root.user')" class="list-group-item"></i> User </a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changeState('root.userGroup')" class="list-group-item"></i> User Group</a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changeState('root.permission')" class="list-group-item" ></i> Permission</a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changeState('root.groupPermission')" class="list-group-item"></i> Group Permission</a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changePassword()" class="list-group-item"> Change Password</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+</div>

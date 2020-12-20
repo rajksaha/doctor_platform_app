@@ -1,0 +1,113 @@
+<div class="modal-header modalHead">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <h2 class="modal-title">Investigation</h2>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <button style="margin-left: 5px" class="btn btn-success btn-success pull-right" data-ng-click="prescription(1)" ><span class="fa fa-thumbs-o-up " aria-hidden="true"></span> Done</button>
+    </div>
+</div>
+<div class="modal-body modalBody" >
+    <div class="alert alert-danger alert-dismissable" data-ng-show="error">
+        <div>{{errorMessage}}</div>
+        <div id="lblMsg_modal"></div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li data-ng-class="{'active': activeTab == 'prefList'}"><a href="javascript:" data-ng-click="setActiveTab('prefList')" aria-expanded="{{activeTab == 'prefList' ? true : false}}">Preference List</a></li>
+        <li data-ng-class="{'active': activeTab == 'addPref'}" ><a href="javascript:" data-ng-click="setActiveTab('addPref')" aria-expanded="{{activeTab == 'addPref' ? true : false}}">Add to Preference</a></li>
+        <li data-ng-class="{'active': activeTab == 'prescribedList'}"><a href="javascript:" data-ng-click="setActiveTab('prescribedList')" aria-expanded="{{activeTab == 'prescribedList' ? true : false}}">Prescribed Inv</a></li>
+    </ul>
+
+    <div id="myTabContent" class="tab-content" style="min-height: 500px">
+        <div class="tab-pane fade" data-ng-class="{'active in': activeTab == 'prefList'}">
+            <select  class="form-control" data-ng-model="selectedInvCategoryID" data-ng-change="bringDoctorPreference(selectedInvCategoryID)" data-ng-options="category.invCategoryID as category.name for category in invCategorySearchList" >
+                <option value="">--Select--</option>
+            </select>
+            <hr style="margin-top: 10px; margin-bottom: 10px">
+            <a href="javascript:"  data-ng-model="searchAlpha" data-ng-repeat="letter in searchAlphaList"
+               class="btn btn-inverted btn-primary" style="margin: 3px;padding: 2px 7px" data-ng-click="setSearchAlpha(letter)">
+                {{letter.toUpperCase()}}
+            </a>
+            <div class="row" data-ng-repeat="alp in alpha | filter:filterByAlphabet | orderBy:'-name':true" style="margin: 10px">
+                <hr style="margin-top: 5px; margin-bottom: 5px">
+                {{alp.name}}
+                <hr style="margin-top: 5px; margin-bottom: 5px">
+                <div class="col-sm-6 col-md-6 col-lg-6" data-ng-repeat="inv in alp.prefList">
+                    <div class="row" data-ng-mouseenter="deletePrefIcon=true" data-ng-mouseleave="deletePrefIcon=false">
+                        <div class="checkbox-s col-sm-10 col-md-10 col-lg-10">
+                            <input id="{{inv.invName}}" type="checkbox" name="{{inv.invName}}" data-ng-model="inv.addedInPrescription" data-ng-click="addORDelINV(!inv.addedInPrescription,inv)">
+                            <label for="{{inv.invName}}">
+                                {{inv.invName}}
+                            </label>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <span data-ng-show="deletePrefIcon" class="pull-right glyphicons glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteFromDoctorPref(inv.invPreferenceID)"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade"  data-ng-class="{'active in': activeTab == 'addPref'}">
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <input type="text" data-ng-model="doctorPrefInvData.invName" typeahead="invNameData.name for invNameData in getInvName($viewValue)"  class="form-control" placeholder="Add Inv to Preference" typeahead-on-select='onSelectInvName($item, $model, $label)'/>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <button  data-ng-click="addToDoctorPreference(false)" class="btn btnLanier btn-success" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save</button>
+                    <button  data-ng-click="addToDoctorPreference(true)" class="btn btnLanier btn-success"  ><span class="fa fa-plus-square-o" aria-hidden="true"></span> Save and Another</button>
+                    <button  data-ng-click="activeTab = 'prefList'" class="btn btnLanier btn-danger" ><span class="fa fa-ban" aria-hidden="true"></span> Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" data-ng-class="{'active in': activeTab == 'prescribedList'}">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12" id="validateReq">
+                    <div class="text-muted form-group">Prescribed INV
+                        <span class="pull-right">
+                        <span>
+                            <button  style="padding-left:12px;" class="btn btn-info" data-ng-click="manualAdd()">
+                                <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+                            </button>
+                        </span>
+                    </span>
+                    </div>
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                        <tr >
+                            <th width="5%"><strong>Sl.</strong></th>
+                            <th width="50%"><strong>Inv Name</strong></th>
+                            <th width="30%"><strong>Note</strong></th>
+                            <th width="10%"><strong>Action</strong></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="invData in prescribedInvList">
+                            <td>
+                                {{$index + 1}}
+                            </td>
+
+                            <td class="form-group">
+                                <span data-ng-show="!invData.editMode">{{invData.invName}}</span>
+                                <input type="text" data-ng-show="invData.editMode" data-ng-model="invData.invName" typeahead="invNameData.name for invNameData in getInvName($viewValue)"  class="form-control required" placeholder="Search Inv" />
+                            </td>
+                            <td class="form-group">
+                                <span data-ng-show="!invData.editMode">{{invData.note}}</span>
+                                <input type="text" data-ng-show="invData.editMode" data-ng-model="invData.note" class="form-control" />
+                            </td>
+                            <td >
+                                <button data-ng-show="!invData.editMode" class="btn btn-primary" data-ng-click="invData.editMode = true">
+                                    <span class="fa fa-pencil"></span>
+                                </button>
+                                <button data-ng-show="invData.editMode" class="btn btn-success" data-ng-click="manualSave(invData)">
+                                    <span class="fa fa-save"></span>
+                                </button>
+                                <span data-ng-show="!invData.editMode" class="btn btn-danger btn-sm btnLanier fa fa-trash" data-ng-click="delete(invData.presInvID)"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

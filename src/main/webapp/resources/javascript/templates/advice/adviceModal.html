@@ -1,0 +1,100 @@
+<div class="modal-header">
+    <div class="col-sm-9 col-md-9 col-lg-9">
+        <h4 class="modal-title">Advice </h4>
+    </div>
+    <div class="col-sm-3 col-md-3 col-lg-3">
+        <button class="pull-right btn btnLanier btn-success" data-ng-click="prescription()" ><span class="fa fa-thumbs-o-up " aria-hidden="true"></span> Done</button>
+    </div>
+</div>
+<div class="modal-body modalBody" style="position:relative; z-index:1">
+
+    <div class="alert alert-danger alert-dismissable" data-ng-show="error">
+        <div>{{errorMessage}}</div>
+        <div id="lblMsg_modal"></div>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li data-ng-class="{'active': activeTab == 'bngPrefList'}"><a href="javascript:" data-ng-click="setActiveTab('bngPrefList')" aria-expanded="{{activeTab == 'bngPrefList' ? true : false}}">Bengali Preference List</a></li>
+        <li data-ng-class="{'active': activeTab == 'engPrefList'}"><a href="javascript:" data-ng-click="setActiveTab('engPrefList')" aria-expanded="{{activeTab == 'engPrefList' ? true : false}}">English Preference List</a></li>
+        <li data-ng-class="{'active': activeTab == 'addPref'}" ><a href="javascript:" data-ng-click="setActiveTab('addPref')" aria-expanded="{{activeTab == 'addPref' ? true : false}}">Add to Preference</a></li>
+        <li data-ng-class="{'active': activeTab == 'prescribedList'}" ><a href="javascript:" data-ng-click="setActiveTab('prescribedList')" aria-expanded="{{activeTab == 'prescribedList' ? true : false}}">Prescribed List</a></li>
+    </ul>
+
+    <div id="myTabContent" class="tab-content" style="min-height: 500px">
+        <div class="tab-pane fade" data-ng-class="{'active in': activeTab == 'bngPrefList'}">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="list-item col-sm-6 col-md-6 col-lg-6" data-ng-repeat="advice in doctorPrefAdviceList | filter:bangFilter">
+                    <div class="row" data-ng-mouseenter="deletePrefIcon=true" data-ng-mouseleave="deletePrefIcon=false">
+                        <div class="checkbox-s col-sm-10 col-md-10 col-lg-10">
+                            <input id="{{advice.advice}}" type="checkbox" name="{{advice.advice}}" data-ng-model="advice.addedInPrescription" data-ng-click="deciderAdvice(!advice.addedInPrescription,advice)">
+                            <label for="{{advice.advice}}">
+                                {{advice.advice}}
+                            </label>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <span data-ng-show="deletePrefIcon" class="pull-right glyphicons glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteFromDoctorPref(advice.adviceSettingID)"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" data-ng-class="{'active in': activeTab == 'engPrefList'}">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="list-item col-sm-6 col-md-6 col-lg-6" data-ng-repeat="advice in doctorPrefAdviceList  | filter:engFilter">
+                    <div class="row" data-ng-mouseenter="deletePrefIcon=true" data-ng-mouseleave="deletePrefIcon=false">
+                        <div class="checkbox-s col-sm-10 col-md-10 col-lg-10">
+                            <input id="{{advice.advice}}" type="checkbox" name="{{advice.advice}}" data-ng-model="advice.addedInPrescription" data-ng-click="deciderAdvice(!advice.addedInPrescription,advice)">
+                            <label for="{{advice.advice}}">
+                                {{advice.advice}}
+                            </label>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <span data-ng-show="deletePrefIcon" class="pull-right glyphicons glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteFromDoctorPref(advice.advicePreferenceID)"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade"  data-ng-class="{'active in': activeTab == 'addPref'}">
+            <div class="row" id="validateReq">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <select data-ng-model="doctorPrefAdviceData.lang" class="form-control">
+                        <option value="0">English</option>
+                        <option value="1" >Bengali</option>
+                    </select>
+                </div>
+                <div class="col-sm-7 col-md-7 col-lg-7">
+                    <input typeahead="adviceNameData.advice for adviceNameData in getAdviceName($viewValue)"  data-ng-model="doctorPrefAdviceData.advice" class="form-control" placeholder="Add advice to Preference">
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <button  data-ng-click="addToDoctorPreference(false)" class="btn btnLanier btn-success" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save</button>
+                    <button  data-ng-click="addToDoctorPreference(true)" class="btn btnLanier btn-success"  ><span class="fa fa-plus-square-o" aria-hidden="true"></span> Save(+)</button>
+                    <button  data-ng-click="activeTab = 'bngPrefList'" class="btn btnLanier btn-danger" ><span class="fa fa-ban" aria-hidden="true"></span> Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade"  data-ng-class="{'active in': activeTab == 'prescribedList'}">
+            <div class="row" id="validateReq">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <select data-ng-model="prescribeAdviceData.lang" class="form-control">
+                        <option value="0">English</option>
+                        <option value="1" >Bengali</option>
+                    </select>
+                </div>
+                <div class="col-sm-7 col-md-7 col-lg-7">
+                    <input typeahead="adviceNameData.advice for adviceNameData in getAdviceName($viewValue)"  data-ng-model="prescribeAdviceData.advice" class="form-control" placeholder="Add advice to Prescription">
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <button  data-ng-click="addToPrescription()" class="btn btnLanier btn-success" ><span class="glyphicons glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Add</button>
+                </div>
+            </div>
+            <hr>
+            <div class="col-sm-12 col-md-12 col-lg-12" data-ng-repeat="adviceData in prescribedAdviceList" style="height:50px;">
+                <a class="link" data-ng-click="deleteAdvice(adviceData.adviceID)">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
+                <span>{{adviceData.advice}}</span>
+            </div>
+        </div>
+    </div>
+</div>

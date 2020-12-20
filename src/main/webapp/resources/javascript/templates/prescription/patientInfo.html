@@ -1,0 +1,21 @@
+<div class="col-sm-4 col-md-2 col-lg-4 form-group">
+    <label >Name: <span >{{patientData.firstName}}</span></label>
+</div>
+<div class="col-sm-2 col-md-2 col-lg-2 form-group">
+    <label >Age: {{patientData.currentAge}} yrs, </label>
+    <label  >Sex: {{patientData.sex}}</label>
+</div>
+<div class="col-sm-2 col-md-2 col-lg-2 form-group">
+    <label  >Address: {{patientData.address}}</label>
+</div>
+<div class="col-sm-2 col-md-2 col-lg-2 form-group">
+    <label >Referred by: {{patientData.referredBy}}</label>
+</div>
+<div class="col-sm-2 col-md-2 col-lg-2 form-group">
+    <label >Occupation: {{patientData.occupation}}</label>
+</div>
+<!---->
+<div data-ng-if="hasAccess('EDIT_PATIENT_INFO')" id="source-button" data-ng-show="hoverState">
+    <a href="javascript:" class="btn btn-circular btn-default" data-ng-click="editPatientInfo()"><i class="fa fa-pencil"></i></a>
+</div>
+

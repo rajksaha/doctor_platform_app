@@ -1,0 +1,87 @@
+<div class="large big" id="" >
+    <div class="modal-header">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+		<div class="text-muted form-group">Past Illness
+			<span class="pull-right">
+				<span>
+					<button  data-ng-show="addMoreButton" style="padding-left:12px;" class="btn btn-info" data-ng-click="addPastHistory(0)">
+						<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+					</button>
+				</span>
+			</span>
+		</div>
+		<table class="table table-condensed table-bordered">
+			<thead class="">
+			<tr >
+				<th width="25%"><strong>Disease Name</strong></th>
+				<th width="20%"><strong>Details</strong></th>
+				<th width="10%"><strong>Action</strong></th>
+			</tr>
+			</thead>
+			<tbody >
+			<tr class="" data-ng-repeat="data in history.itemList | filter : {isPresent : 0 }">
+				<td >
+					<span data-ng-show="!data.editMode">{{data.diseaseName}}</span>
+					<div class="form-group">
+						<input data-ng-show="data.editMode" type="text" ng-model="data.diseaseName" typeahead="diagnosisNameData.diseaseName for diagnosisNameData in getDisease($viewValue)"  class="form-control required" placeholder="Disease name"/>
+					</div>
+
+				</td>
+				<td>
+					<span data-ng-show="!data.editMode" >{{data.detail}}</span>
+					<input data-ng-show="data.editMode" type="text" data-ng-model="data.detail"  class="form-control" placeholder="Detail" />
+				</td>
+
+				<td >
+					<i title="Save" class="fa fa-floppy-o" data-ng-show="data.editMode" data-ng-click="savePastHistory(data)"></i>
+					<i title="Cancel" class="fa fa-ban" data-ng-show="data.editMode" data-ng-click="cancelPastHistory(data)"></i>
+					<i title="Edit"  class="fa fa-pencil" data-ng-show="!data.editMode && !data.otherEditMode" data-ng-click="editPastHistory(data)"></i>
+					<i title="Delete" class="fa fa-trash" data-ng-show="!data.editMode && !data.otherEditMode" data-ng-click="deletePastHistory(data.patientPastDiseaseID)"></i>
+					<i title="Add to Prescription" data-ng-model="none"   data-ng-show="!data.editMode && !data.otherEditMode" data-ng-click="addToPresPast(data)" class="glyphicon"  data-ng-class="{'glyphicon-check': data.addedToPres == true,'glyphicon-unchecked': data.addedToPres != true}"></i>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<div class="text-muted form-group">Co Morbidities
+			<span class="pull-right">
+				<span>
+					<button  data-ng-show="addMoreButton" style="padding-left:12px;" class="btn btn-info" data-ng-click="addPastHistory(1)">
+						<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+					</button>
+				</span>
+			</span>
+		</div>
+		<table  class="table table-condensed table-bordered">
+			<thead>
+			<tr >
+				<th width="25%"><strong>Disease Name</strong></th>
+				<th width="20%"><strong>Details</strong></th>
+				<th width="10%"><strong>Action</strong></th>
+			</tr>
+			</thead>
+			<tbody >
+			<tr data-ng-repeat="data in history.itemList  | filter : {isPresent : 1 }" style="height: 50px;cursor: pointer;">
+				<td >
+					<span data-ng-show="!data.editMode">{{data.diseaseName}}</span>
+					<div class="form-group">
+						<input data-ng-show="data.editMode" type="text" ng-model="data.diseaseName" typeahead="diagnosisNameData.diseaseName for diagnosisNameData in getDisease($viewValue)"  class="form-control required" placeholder="Disease name"/>
+					</div>
+				</td>
+				<td>
+					<span data-ng-show="!data.editMode" >{{data.detail}}</span>
+					<input data-ng-show="data.editMode" type="text" data-ng-model="data.detail"  class="form-control" placeholder="Detail" />
+				</td>
+				<td >
+					<i title="Save" class="fa fa-floppy-o" data-ng-show="data.editMode" data-ng-click="savePastHistory(data)"></i>
+					<i title="Cancel" class="fa fa-ban" data-ng-show="data.editMode" data-ng-click="cancelPastHistory(data)"></i>
+					<i title="Edit"  class="fa fa-pencil"data-ng-show="!data.editMode && !data.otherEditMode" data-ng-click="editPastHistory(data)"></i>
+					<i title="Delete" class="fa fa-trash" data-ng-show="!data.editMode && !data.otherEditMode" data-ng-click="deletePastHistory(data.patientPastDiseaseID)"></i>
+					<i title="Add to Prescription" data-ng-model="none"   data-ng-show="!data.editMode && !data.otherEditMode" data-ng-click="addToPresPast(data)" class="glyphicon"  data-ng-class="{'glyphicon-check': data.addedToPres == true,'glyphicon-unchecked': data.addedToPres != true}"></i>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <h2 class="item-head link"><a href="" data-ng-click="noteModal()"><label class="mainLabel">Clinical Note</label></a></h2>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+   
+        <h2 class="item-head">
+            <label>Next Visit</label>
+            <i class="fa fa-sort-numeric-asc pull-right link" data-ng-show="nextVisitData.nextVisitType != 2" data-ng-click="nextVisitData.nextVisitType = 2;nextVisitData.needSaveButton = true;
+                nextVisitData.numOfDay =7;nextVisitData.durationType = 1; "></i>
+            <i class="fa fa-calendar pull-right link" data-ng-show="nextVisitData.nextVisitType == 2" data-ng-click="nextVisitData.nextVisitType = 1"></i>
+        </h2>
+        <div class="input-group input-group-sm" data-ng-show="nextVisitData.nextVisitType != 2">
+			
+            <input type="text"  class="form-control form-control-date input-sm" data-ng-model="nextVisitData.visitDate" data-ng-change="fixNextVisit(1)"   maxlength="100" placeholder="Next Visit Date"
+                   datepicker-popup="dd/MM/yyyy" close-text="Close" is_open="dt1" ng-focus="dt1 = true" ng-click="dt1 = true" >
+            <span  class="input-group-addon" >
+                <i class="glyphicon glyphicon-calendar" ></i>
+            </span>
+        </div>
+        <div class="form-group" data-ng-show="nextVisitData.nextVisitType == 2" >
+            <label>After:</label>
+            <i class="pull-right fa fa-floppy-o link" data-ng-show="nextVisitData.needSaveButton" data-ng-click="fixNextVisit(2)"></i>
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <select class="form-control "  data-ng-model="nextVisitData.numOfDay"  data-ng-options="drugDay.value as drugDay.name for drugDay in numOfDayList" data-ng-change="nextVisitData.needSaveButton = true">
+                    </select>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <select class="form-control col-sm-6 col-md-6 col-lg-6"   data-ng-model="nextVisitData.durationType" data-ng-options="drugTime.id as drugTime.engName for drugTime in nextVisitDayTypeList" data-ng-change="nextVisitData.needSaveButton = true">
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+

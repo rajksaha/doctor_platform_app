@@ -1,0 +1,36 @@
+<div class="modal-header modalHead ">
+	<div class="col-sm-9 col-md-9 col-lg-9">
+		<h4 class="modal-title">Add Inv To Settings</h4>
+	</div>
+	<div class="col-sm-3 col-md-3 col-lg-3" data-ng-if="invCategoryDataList.length > 50">
+		<button class="btn btnLanier btn-success" data-ng-click="cancel()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Done</button>
+	</div>
+</div>
+<div class="modal-body modalBody"  style="position:relative; z-index:1;">
+	<div class="alert alert-danger alert-dismissable" data-ng-show="error">
+        <div>{{errorMessage}}</div>
+        <div id="lblMsg_modal"></div>
+    </div>
+
+
+    	<div  class="row step4Width" id="validateReq">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<select  class="form-control" id="drugTypeAdder" data-ng-model="invCategoryID" data-ng-options="category.invCategoryID as category.name for category in invCategoryList" data-ng-change="bringInvByCategory(invCategoryID)">
+					<option value="">--Select--</option>
+				</select>
+				<hr>
+				<div class="row">
+					<div class="list-item col-sm-6 col-md-6 col-lg-6" data-ng-repeat="inv in invCategoryDataList | filter : colorFilter">
+						<button class="btn btn-default" data-ng-model="none"   data-ng-click="addToInvSetting(!inv.addedToPrescription,inv)">
+							<span class="glyphicon  glyphicon"  data-ng-class="{'glyphicon-check': inv.addedToPrescription == true,'glyphicon-unchecked': inv.addedToPrescription != true}"></span>
+						</button>
+						<span style="font-size: 14px !important;">{{inv.name}}</span>
+					</div>
+				</div>
+			</div>
+    	</div>
+	
+</div>
+<div class="modal-footer modalFoot">
+	<button class="btn btnLanier btn-success" data-ng-click="cancel()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Done</button>
+</div>

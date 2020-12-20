@@ -1,0 +1,32 @@
+<div class="large big" id="testModal">
+
+    <div class='modal-header modalHead'>
+        <h4 class='modal-title'>User Group Assignment</h4>
+    </div>
+
+    <div class='modal-body'>
+        <div class="row" id="validationRequired">
+            <table class="table table-bordered table-condensed table-striped table-hover">
+                <thead>
+                    <tr class="bg-primary">
+                        <th  class="text-center">Group Name</th>
+                        <th  class="text-center">Assign</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="group in userProfile.userGroupList">
+                        <td class="col-md-1 text-center">{{group.shortName}}</td>
+                        <td class="col-md-1 text-center">
+                            <input type="checkbox" data-ng-model="group.isAssigned"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-footer modalFoot">
+        <button class="btn btn-success btnLanier" ng-click="save()"><i class="fa fa-close"></i> Save</button>
+        <button class="btn btn-danger btnLanier" ng-click="cancel()"><i class="fa fa-close"></i> Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="large big" id="" >
+    <div class="modal-header">
+        <div class="col-sm-9 col-md-9 col-lg-9">
+            <h4 class="modal-title">On Examination</h4>
+        </div>
+    </div>
+    <div class="modal-body modalBody"  style="position:relative; z-index:1;">
+        <div class="alert alert-danger alert-dismissable" data-ng-show="error">
+            <div id="lblMsg"></div>
+        </div>
+        <div class="alert alert-success" data-ng-show="succcess">
+            <div>{{message}}</div>
+        </div>
+
+        <ul class="nav nav-tabs">
+            <li data-ng-class="{'active': activeTab == 'presVital'}"><a href="javascript:" data-ng-click="setActiveTab('presVital')" aria-expanded="{{activeTab == 'presVital' ? true : false}}">Patient Vital</a></li>
+            <li data-ng-class="{'active': activeTab == 'setupVital'}" ><a href="javascript:" data-ng-click="setActiveTab('setupVital')" aria-expanded="{{activeTab == 'setupVital' ? true : false}}">Add to Vital</a></li>
+        </ul>
+
+        <div id="myTabContent" class="tab-content" style="min-height: 500px">
+            <div class="tab-pane fade" data-ng-class="{'active in': activeTab == 'presVital'}">
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4" data-ng-repeat="vital in doctorVitalList">
+                        <div>
+                            <span class="glyphicons glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="deleteVitalFromSetting(vital.vitalSettingID)"></span>
+                            <span>{{vital.vitalName}}</span>
+                            <input type="text" data-ng-model="vital.vitalResult" typeahead="vitalOption.optionName for vitalOption in getVitalOption(vital, $viewValue)"  class="form-control" typeahead-on-select='onSelectInvName($item, $model, $label)'/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" data-ng-class="{'active in': activeTab == 'setupVital'}">
+                <div class="row" id="vitalSetting">
+
+                    <div class="form-group col-sm-4 col-md-4 col-lg-4">
+                        <label >Vital Name<span class="red" >*</span></label>
+                        <input type="text" data-ng-model="vitalData.vitalName" typeahead="vitalNameData.vitalName for vitalNameData in getVital($viewValue)"  data-ng-change="populateShortName(vitalData.vitalName)" class="form-control required" placeholder="Add vital to your settings" typeahead-on-select='onSelectVital($item, $model, $label)'/>
+                    </div>
+
+                    <div class="form-group col-sm-4 col-md-4 col-lg-4">
+                        <label >Display name<span class="red" >*</span></label><span class="pull-right">
+                        <input type="checkbox" data-ng-model="vitalData.sameAsName" data-ng-click="vitalData.sameAsName = !vitalData.sameAsName;populateShortName(vitalData.vitalName)">Same AS Vital Name</span>
+                        <input type="text" class="form-control input-sm required" data-ng-model="vitalData.shortName" maxlength="45" />
+                    </div>
+
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <label> Vital Unit</label>
+                        <input type="text" class="form-control input-sm" data-ng-model="vitalData.unit" maxlength="16" placeholder="Unit" errmsg="Please enter vital Unit"/>
+                    </div>
+
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <label > Action </label>
+                        <button class="btn btn-success" data-ng-click="addVitalToDoctorPref(false)">
+                            <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+                        </button>
+                        <button class="btn btn-success" data-ng-click="addVitalToDoctorPref(true)">
+                            <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add(+)
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer modalFoot">
+        <button class="btn btn-success" data-ng-click="saveVital()"><span class="glyphicon  glyphicon-floppy-save" aria-hidden="true"></span> Save & Continue</button>
+        <button class="btn btnLanier btn-danger" data-ng-click="cancelVital()" ><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</button>
+    </div>
+</div>

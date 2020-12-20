@@ -1,0 +1,217 @@
+adasdasdas
+<div class="echo_side_menu_bar" data-ng-if="userData.permissions['SUPER_ADMIN']">
+    <div class="echo_list">
+        <div class="echo_infos">
+            <i class="fa fa-cogs"></i>
+            <span>Management</span>
+            <i class="fa fa-chevron-down echo_arrow"></i>
+        </div>
+
+        <div class="echo_list_drop">
+            <ul>
+                <li><a href="" data-ng-click="changeState('root.module', null, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Module </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="echo_side_menu_bar" data-ng-if="userData.permissions['SUPER_ADMIN']">
+    <div class="echo_list">
+        <div class="echo_infos">
+            <i class="fa fa-cogs"></i>
+            <span>Company Management</span>
+            <i class="fa fa-chevron-down echo_arrow"></i>
+        </div>
+
+        <div class="echo_list_drop">
+            <ul>
+                <li>
+                    <a href="" data-ng-click="changeState('root.company', null, null)"class="list-group-item"><i class="fa fa-caret-right"></i> Company </a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changeState('root.companyModule', null, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Company Module </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="echo_side_menu_bar" data-ng-if="userData.permissions['SUPER_ADMIN'] || userData.permissions['ECLAIM_ADMIN_VIEW']">
+    <div class="echo_list">
+        <div class="echo_infos">
+            <i class="fa fa-users"></i>
+            <span>User Management</span>
+            <i class="fa fa-chevron-down echo_arrow"></i>
+        </div>
+
+        <div class="echo_list_drop">
+            <ul>
+                <li>
+                    <a href="" data-ng-click="changeState('root.user', null, null)" class="list-group-item"><i class="fa fa-caret-right"></i> User </a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changeState('root.userGroup', null, null)" class="list-group-item"><i class="fa fa-caret-right"></i> User Group</a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changeState('root.groupPermission', null, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Group Permission</a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changeState('root.userUpload', null, null)"class="list-group-item" ><i class="fa fa-caret-right"></i> Upload user List</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="echo_side_menu_bar" data-ng-if="userData.permissions['ECLAIM_ADMIN_VIEW']">
+    <div class="echo_list">
+        <div class="echo_infos">
+            <i class="fa fa-cubes"></i>
+            <span>Admin Setup </span>
+            <i class="fa fa-chevron-down echo_arrow"></i>
+        </div>
+        <div class="echo_list_drop">
+            <ul>
+                <li><a href="" data-ng-click="changeState('root.companyFormation', null, null)" data-ng-if="userData.companyID == 1" class="list-group-item"><i class="fa fa-caret-right"></i> Company Formation </a></li>
+                <li><a href="" data-ng-click="changeState('root.category', null, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Category</a></li>
+                <li><a href="" data-ng-click="changeState('root.globalSetup', null, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Global Setup</a></li>
+                <li><a href="" data-ng-click="changeState('root.adminSetup', null, null)"class="list-group-item"><i class="fa fa-caret-right"></i> Validation Setup</a></li>
+                <li><a href="" data-ng-click="changeState('root.approvalLevel', null, null)"class="list-group-item"><i class="fa fa-caret-right"></i> Approval Level Setup</a></li>
+                <li><a href="" data-ng-click="changeState('root.eClaimReport', 1, null)" class="list-group-item"><i class="fa fa-caret-right"></i> HR Report</a></li>
+                <!--<li><a href="" data-ng-click="changeState('root.eClaimReport', 2, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Admin Report</a></li>-->
+                <li><a href="" data-ng-click="changeState('root.viewClaim', 1, null)" class="list-group-item"><i class="fa fa-caret-right"></i> HR Claim Search</a></li>
+                <!--<li><a href="" data-ng-click="changeState('root.viewClaim', 2, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Admin Claim Search</a></li>-->
+                <!--<li><a href="" data-ng-click="changeState('root.companyTax', null, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Claim Taxation </a></li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="echo_side_menu_bar" data-ng-if="userData.permissions['OTC_ADMIN_VIEW']" >
+    <div class="echo_list">
+        <div class="echo_infos">
+            <i class="fa fa-tachometer"></i>
+            <span>OTC</span>
+            <i class="fa fa-chevron-down echo_arrow"></i>
+        </div>
+        <div class="echo_list_drop">
+            <ul>
+                <li><a href="" data-ng-if="userData.permissions['ECLAIM_ADMIN_VIEW']" data-ng-click="changeState('root.userOutlet', null, null)"  class="list-group-item"><i class="fa fa-caret-right"></i> User Outlet Assignment </a></li>
+                <li><a href="" data-ng-click="changeState('root.masterReport', null, null)"  class="list-group-item"><i class="fa fa-caret-right"></i> Master Report </a></li>
+                <li><a href="" data-ng-click="changeState('root.reportTracker', null, null)"  class="list-group-item"><i class="fa fa-caret-right"></i> Report Submission </a></li>
+                <li><a href="" data-ng-click="changeState('root.inputCompleteness', null, null)"  class="list-group-item"><i class="fa fa-caret-right"></i> Data Input Completeness </a></li>
+                <li><a href="" data-ng-click="changeState('root.npsScore', null, null)"  class="list-group-item"><i class="fa fa-caret-right"></i> NPS Score </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="echo_side_menu_bar" data-ng-if="userData.permissions['ECLAIM_CLAIM_VIEW']">
+    <div class="echo_list">
+        <div class="echo_infos">
+            <i class="fa fa-money"></i>
+            <span>Claims</span>
+            <i class="fa fa-chevron-down echo_arrow"></i>
+        </div>
+
+        <div class="echo_list_drop">
+            <ul>
+                <li>
+                    <a href="" data-ng-click="changeState('root.claimForm', 1,null)" class="list-group-item"><i class="fa fa-caret-right"></i>HR Claim Form</a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changeState('root.claimList', 1, null)" class="list-group-item"><i class="fa fa-caret-right"></i> HR Claim List</a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changeState('root.pendingOriginal', null, null)" class="list-group-item"><i class="fa fa-caret-right"></i>Pending Original Document</a>
+                </li>
+                <!--<li>
+                    <a href="" data-ng-click="changeState('root.claimForm', 2,null)" class="list-group-item"><i class="fa fa-caret-right"></i>Admin Claim Form</a>
+                </li>
+                <li>
+                    <a href="" data-ng-click="changeState('root.claimList', 2, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Admin Claim List</a>
+                </li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="echo_side_menu_bar" data-ng-if="userData.permissions['ECLAIM_APPROVER_2_VIEW']  || userData.permissions['ECLAIM_APPROVER_1_VIEW'] || userData.permissions['ECLAIM_DOC_APPROVER_VIEW'] || userData.permissions['ECLAIM_APPROVER_3_VIEW']">
+    <div class="echo_list">
+        <div class="echo_infos">
+            <i class="fa fa-gavel"></i>
+            <span>HR Approval</span>
+            <i class="fa fa-chevron-down echo_arrow"></i>
+        </div>
+
+        <div class="echo_list_drop" >
+            <ul data-ng-repeat="appLevel in approvalLevelList">
+                <li><a href="" data-ng-if="appLevel.claimType == 1 && userData.permissions[appLevel.permissionCode]" data-ng-click="changeState('root.approval', appLevel.claimType, appLevel.permissionCode)" class="list-group-item"><i class="fa fa-caret-right"></i> {{appLevel.approvalState}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--<div class="echo_side_menu_bar" data-ng-if="userData.permissions['EXP_ADMIN_APP_1_VIEW']  || userData.permissions['EXP_ADMIN_APP_2_VIEW'] || userData.permissions['EXP_ADMIN_APP_3_VIEW']">
+    <div class="echo_list">
+        <div class="echo_infos">
+            <i class="fa fa-gavel"></i>
+            <span>Admin Approval</span>
+            <i class="fa fa-chevron-down echo_arrow"></i>
+        </div>
+
+        <div class="echo_list_drop" >
+            <ul data-ng-repeat="appLevel in approvalLevelList">
+                <li><a href="" data-ng-if="appLevel.claimType == 2 && userData.permissions[appLevel.permissionCode]" data-ng-click="changeState('root.approval', appLevel.claimType, appLevel.permissionCode)" class="list-group-item"><i class="fa fa-caret-right"></i> {{appLevel.approvalState}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>-->
+
+<div class="echo_side_menu_bar" data-ng-if="userData.permissions['ECLAIM_HR_VIEW']">
+    <div class="echo_list">
+        <div class="echo_infos">
+            <i class="fa fa-bar-chart"></i>
+            <span>HR Management</span>
+            <i class="fa fa-chevron-down echo_arrow"></i>
+        </div>
+        <div class="echo_list_drop">
+            <ul>
+                <li><a href="" data-ng-click="changeState('root.eClaimReport', 1, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Monthly Report</a></li>
+                <li><a href="" data-ng-click="changeState('root.viewClaim', 1, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Claims Search</a></li>
+                <li><a href="" data-ng-click="changeState('root.companyTax', null, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Claim Taxation </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--<div class="echo_side_menu_bar" data-ng-if="userData.permissions['ECLAIM_ADMIN_CLAIM_VIEW']">
+    <div class="echo_list">
+        <div class="echo_infos">
+            <i class="fa fa-bar-chart"></i>
+            <span>Admin Management</span>
+            <i class="fa fa-chevron-down echo_arrow"></i>
+        </div>
+        <div class="echo_list_drop">
+            <ul>
+                <li><a href="" data-ng-click="changeState('root.eClaimReport', 2, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Monthly Report</a></li>
+                <li><a href="" data-ng-click="changeState('root.viewClaim', 2, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Claim Search</a></li>
+                <li><a href="" data-ng-click="changeState('root.companyTax', null, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Claim Taxation </a></li>
+            </ul>
+        </div>
+    </div>
+</div>-->
+
+<!--<div class="echo_side_menu_bar" data-ng-if="userData.permissions['ECLAIM_APPROVE_ON_BEHALF_VIEW']">
+    <div class="echo_list">
+        <div class="echo_infos">
+            <i class="fa fa-building-o"></i>
+            <span> Approval On Behalf</span>
+            <i class="fa fa-chevron-down echo_arrow"></i>
+        </div>
+        <div class="echo_list_drop">
+            <ul>
+                <li><a href=""  data-ng-click="changeState('root.approvalOnBehalf', 1, null)" class="list-group-item"><i class="fa fa-caret-right"></i> Approve</a></li>
+            </ul>
+        </div>
+    </div>
+</div>-->
+

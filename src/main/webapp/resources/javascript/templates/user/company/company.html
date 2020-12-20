@@ -1,0 +1,79 @@
+<script type="text/ng-template" id="action_template">
+    <a href="" data-ng-click="edit(item)"><i class="fa fa-edit"></i></a>
+    <a href="" class=""
+       echo-confirmation="delete(item)"
+       confirmation-message="Are you sure to remove?"
+       confirmation-title="Confirmation"
+       item="item">
+        <span class="fa fa-trash"></span></a>
+</script>
+
+<div class="panel panel-default mt-15">
+    <div class="panel-heading clearfix">
+        <strong>Company List</strong>
+        <div class="pull-right">
+            <button class="btn btn-sm btn-success" ng-show="!showForm" title="Add Company" data-ng-click="add()"><span class="glyphicon glyphicon-plus"></span></button>
+            <button class="btn btn-sm btn-warning" ng-show="showForm" title="Back To List" data-ng-click="backToList()"><span class="glyphicon glyphicon-arrow-left"></span></button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="alert alert-danger alert-dismissable" data-ng-show="hasError">
+            {{message}}
+        </div>
+        <div class="alert alert-success alert-dismissable" data-ng-show="hasSuccess">
+            {{message}}
+        </div>
+
+        <div class="row" id="validationRequired" ng-show="showForm">
+            <div class="col-md-6 col-lg-6" >
+                <div class="form-group">
+                    <label>Company Code<span class="text-red">*</span></label>
+                    <input type="text" data-ng-model="company.companyCode" class="form-control input-sm required" maxlength="90">
+                    <div class="validationErrMsg small text-danger mt-5 hidden"></div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6" >
+                <div class="form-group">
+                    <label>Company Name<span class="text-red">*</span></label>
+                    <input type="text" data-ng-model="company.companyName" class="form-control input-sm required" maxlength="90">
+                    <div class="validationErrMsg small text-danger mt-5 hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-show="!showForm">
+            <div class="form-group col-md-5 col-lg-5">
+                <div class="input-group">
+                    <input type="text" class="form-control" enter-event="search()" ng-model="searchParam.companyName" />
+                    <span class="input-group-addon">Company Name</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <button class="btn btn-primary" ng-click="search()"><i class="fa fa-search"></i></button>
+            </div>
+
+            <div class="col-md-12 col-lg-12">
+                <ad-table-ajax table-classes="table table-bordered table-hover bfpb-table"
+                               page-sizes="[10, 15, 20]"
+                               page-loader="methods.pageLoader"
+                               pagination-btn-group-classes="pagination pagination-sm"
+                               items-not-found-message="No company found"
+                               state="{sortKey: 'companyName', sortDirection: 'ASC'}"
+                               column-definition="columnDefinition"
+                               ajax-config="dataSourceConfig">
+                </ad-table-ajax>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="panel-footer" ng-show="showForm">
+        <div class="text-right">
+            <button class="btn btn-sm btn-warning" data-ng-click="reset()"><span class="glyphicon glyphicon-remove"></span> Reset</button>
+            <button class="btn btn-sm btn-success" data-ng-click="save(company)" data-ng-hide="company.companyID > 0"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+            <button class="btn btn-sm btn-success" data-ng-click="update(company)" data-ng-show="company.companyID > 0"><span class="glyphicon glyphicon-floppy-disk"></span> Update</button>
+            <button class="btn btn-sm btn-danger" data-ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 alert alert-info">
+	<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+		<h2 >Inv Reports</h2>
+	</div>
+	<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<span class="pull-right">
+			<button style="padding-left:12px;" class="btn btn-info" data-ng-click="addInvReport()"><span class="glyphicon glyphicon-plus" aria-hidden="true"> Add Report</span></button>
+			<a style="padding-left:12px;" class="btn btn-info" href="#/prescription"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"> Back</span></a>
+		</span>
+	</div>
+</div>
+<br>
+
+<div class="row">
+
+	<div class="col-sm-2 col-md-2 col-lg-2">
+		<table class="table table-responsive">
+			<thead>
+			<tr>
+				<th>Date</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr data-ng-repeat="data in oldReportList">
+				<td><span class="textSpc link" data-ng-class="{'selected' : prescriptionViewDate == data.reportDate}" data-ng-click="getInvReports(data.reportDate)">{{data.reportDate | date:'d-M-yyyy'}}</span></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class='col-sm-10 col-md-10 col-lg-10' data-ng-show="showPrescriptionView">
+
+		<div class="row">
+			<div class="verticalLine ">
+				<div data-ng-repeat="report in invReportList">
+					<div class="alert alert-success col-sm-2 col-md-2 col-lg-2" style="background-color: #efffb2; text-align:center; margin-right: 10px" data-ng-click="showLastUploadedPhoto(report)">
+						<i class="fa fa-files-o fa-2x"></i>
+						<label data-ng-class="{'selected' : imageLink == report.reportLocation}" >{{report.fileName}}</label>
+					</div>
+				</div>
+				<div class="col-md-12"></div>
+				<div class="alert alert-success col-sm-8 col-md-8 col-lg-8" style="background-color: #efffb2; text-align:center; margin-right: 10px" data-ng-click="showLastUploadedPhoto(report)">
+					<div data-ng-show="imageView">
+						<img ng-src="{{imageLink}}" width="100%">
+					</div>
+
+					<div data-ng-show="pdfView">
+						<object data="{{imageLink}}" type="application/pdf" width="100%" height="600px">
+							<p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+						</object>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
